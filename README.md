@@ -1,61 +1,61 @@
 # toolFisch
 
-toolFisch la mot tac vu tu dong cau ca ben ngoai (External Agent) danh cho tua game Fisch tren nen tang Roblox, su dung ky thuat thi giac may tinh (Computer Vision) de tuong tac voi giao dien game ma khong can can thiep vao bo nho hay tep tin cua game, dam bao tinh an toan va han che toi da kha nang bi phat hien.
+toolFisch là một tác vụ tự động câu cá bên ngoài (External Agent) dành cho tựa game Fisch trên nền tảng Roblox, sử dụng kỹ thuật thị giác máy tính (Computer Vision) để tương tác với giao diện game mà không cần can thiệp vào bộ nhớ hay tệp tin của game, đảm bảo tính an toàn và hạn chế tối đa khả năng bị phát hiện.
 
-## Tinh nang chinh
+## Tính năng chính
 
-1. Kien truc State Machine tu dong hoa hoan toan cac buoc: Quang can -> Doi ca can -> Click bong bong Shake -> Giu/tha chuot mini-game (Reeling) -> Dem va ghi nhan ket qua.
-2. Bo dieu khien Reeling thich ung (Edge-Aware Predictive Controller): Tu dong tinh toan van toc, huong di chuyen cua ca va ap dung thuat toan du doan vi tri de giu thanh bat ca luon nam trong vung an toan, ho tro cau ca hiem tu tier Common den Mythic.
-3. Cong cu hieu chinh ROI truc quan (Visual Calibrator): Ho tro nguoi dung ve va luu vung quet truc tiep tren man hinh thong qua giao dien truc quan (F9), tu dong tuong thich voi moi do phan giai man hinh.
-4. Chup man hinh da luong an toan: Su dung thu vien mss voi co che phan tach luong doc lap (thread-local contexts), giai quyet triet de loi truy cap bo nho tren he dieu hanh Windows.
-5. Co che chong AFK va hanh vi nhan bang: Tich hop cac khoang tre ngau nhien, di chuyen nhan vat gia lap hanh vi nguoi that de di qua he thong quet AFK cua Roblox.
+1. Kiến trúc State Machine tự động hóa hoàn toàn các bước: Quăng cần -> Đợi cá cắn -> Click bong bóng Shake -> Giữ/thả chuột mini-game (Reeling) -> Đếm và ghi nhận kết quả.
+2. Bộ điều khiển Reeling thích ứng (Edge-Aware Predictive Controller): Tự động tính toán vận tốc, hướng di chuyển của cá và áp dụng thuật toán dự đoán vị trí để giữ thanh bắt cá luôn nằm trong vung an toàn, hỗ trợ câu cá hiếm từ hạng Common đến Mythic.
+3. Công cụ hiệu chỉnh ROI trực quan (Visual Calibrator): Hỗ trợ người dùng vẽ và lưu vùng quét trực tiếp trên màn hình thông qua giao diện trực quan (F9), tự động tương thích với mọi độ phân giải màn hình.
+4. Chụp màn hình đa luồng an toàn: Sử dụng thư viện mss với cơ chế phân tách luồng độc lập (thread-local contexts), giải quyết triệt để lỗi truy cập bộ nhớ trên hệ điều hành Windows.
+5. Cơ chế chống AFK và hành vi nhân bản: Tích hợp các khoảng trễ ngẫu nhiên, di chuyển nhân vật giả lập hành vi người thật để đi qua hệ thống quét AFK của Roblox.
 
-## Cong nghe su dung
+## Công nghệ sử dụng
 
 * Python 3.11+
-* OpenCV (Phan tich hinh anh va loc dai mau HSV)
-* CustomTkinter / Tkinter (Giao dien dieu khien che do toi)
-* MSS (Chup anh man hinh toc do cao tren 60 FPS)
-* PyDirectInput (Gui tin hieu click, hold chuot o cap do phan cung DirectX)
-* Loguru (Ghi log bat dong bo)
+* OpenCV (Phân tích hình ảnh và lọc dải màu HSV)
+* CustomTkinter / Tkinter (Giao diện điều khiển chế độ tối)
+* MSS (Chụp ảnh màn hình tốc độ cao trên 60 FPS)
+* PyDirectInput (Gửi tín hiệu click, hold chuột ở cấp độ phần cứng DirectX)
+* Loguru (Ghi log bất đồng bộ)
 
-## Huong dan cai dat
+## Hướng dẫn cài đặt
 
-### Yeu cau he thong
-* He dieu hanh: Windows (do PyDirectInput can quyen dieu khien phan cung Windows).
-* Python phien ban 3.11 tro len.
+### Yêu cầu hệ thống
+* Hệ điều hành: Windows (do PyDirectInput cần quyền điều khiển phần cứng Windows).
+* Python phiên bản 3.11 trở lên.
 
-### Cac buoc cai dat
-1. Tai ma nguon tu kho luu tru nay ve may.
-2. Mo Command Prompt hoac PowerShell voi quyen Admin (Run as Administrator) va di chuyen den thu muc nguon cua du an.
-3. Cai dat cac thu vien phu thuoc bang lenh sau:
+### Các bước cài đặt
+1. Tải mã nguồn từ kho lưu trữ này về máy.
+2. Mở Command Prompt hoặc PowerShell với quyền Admin (Run as Administrator) và di chuyển đến thư mục nguồn của dự án.
+3. Cài đặt các thư viện phụ thuộc bằng lệnh sau:
    ```bash
    pip install opencv-python numpy mss pydirectinput loguru pillow
    ```
 
-## Huong dan su dung
+## Hướng dẫn sử dụng
 
-### Khoi dong tool
-Moi thao tac gui tin hieu chuot vao Roblox yeu cau quyen quan tri, do do ban phai chay cong cu tu terminal co quyen Admin:
+### Khởi động công cụ
+Mọi thao tác gửi tín hiệu chuột vào Roblox yêu cầu quyền quản trị, do đó bạn phải chạy công cụ từ terminal có quyền Admin:
 ```bash
 python main.py
 ```
 
-### Cac phim tat trong tool
-* F8: Bat dau hoac Tam dung (Toggle Start/Stop) chu ky tu dong cau ca.
-* F9: Mo cua so hieu chinh vung quet man hinh (Calibrator).
-* ESC: Dung chay tool ngay lap tuc.
+### Các phím tắt trong công cụ
+* F8: Bắt đầu hoặc Tạm dừng (Toggle Start/Stop) chu kỳ tự động câu cá.
+* F9: Mở cửa sổ hiệu chỉnh vùng quét màn hình (Calibrator).
+* ESC: Dừng chạy công cụ ngay lập tức.
 
-### Huong dan can chinh toa do (Calibration)
-1. Khi khoi chay tool lan dau, ban can dung visual calibrator de dinh hinh cac vung quet tren man hinh Roblox.
-2. Nhan F9 de mo cua so Calibrator.
-3. Chon vung can thiet lap (Bar Zone cho minigame hoac Shake Zone cho bong bong).
-4. Nhap chuot va keo chon dung vi tri cua thanh minigame tren man hinh, sau do nhan ENTER de xac nhan luu.
-5. Toa do moi se duoc cap nhat truc tiep vao tep tin config.json.
+### Hướng dẫn căn chỉnh tọa độ (Calibration)
+1. Khi khởi chạy công cụ lần đầu, bạn cần dùng visual calibrator để định hình các vùng quét trên màn hình Roblox.
+2. Nhấn F9 để mở cửa sổ Calibrator.
+3. Chọn vùng cần thiết lập (Bar Zone cho minigame hoặc Shake Zone cho bong bóng).
+4. Nhấp chuột và kéo chọn đúng vị trí của thanh minigame trên màn hình, sau đó nhấn ENTER để xác nhận lưu.
+5. Tọa độ mới sẽ được cập nhật trực tiếp vào tệp tin config.json.
 
-### Chuan doan loi (Diagnostic)
-Neu tool bao loi khong tim thay thanh giu ca hoac ca chay tuot ra ngoai, hay mo game den phan minigame giu ca va chay:
+### Chẩn đoán lỗi (Diagnostic)
+Nếu công cụ báo lỗi không tìm thấy thanh giữ cá hoặc cá chạy tuột ra ngoài, hãy mở game đến phần minigame giữ cá và chạy:
 ```bash
 python diagnostic.py
 ```
-Sau 3 giay, tep tin hinh anh ket qua chup man hinh va mask loc mau HSV se duoc luu tai thu muc logs/. Dua vao cac anh do, ban co the dieu chinh lai toa do ROI hoac dai mau sac trong config.json cho phu hop voi cau hinh do hoa game cua ban.
+Sau 3 giây, tệp tin hình ảnh kết quả chụp màn hình và mask lọc màu HSV sẽ được lưu tại thư mục logs/. Dựa vào các ảnh đó, bạn có thể điều chỉnh lại tọa độ ROI hoặc dải màu sắc trong config.json cho phù hợp với cấu hình đồ họa game của bạn.
